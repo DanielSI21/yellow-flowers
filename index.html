@@ -34,7 +34,7 @@
         noStroke();
         
         // Dibujar flores amarillas
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
             let x = random(width);
             let y = random(100, height - 100);
             drawFlower(x, y);
@@ -42,23 +42,21 @@
     }
     
     function drawFlower(x, y) {
-    // Tallo verde
-    fill(0, 128, 0);
-    rect(x - 2, y, 4, 100);
-    
-    // Pétalos amarillos
-    fill(255, 255, 0);
-    for (let angle = 0; angle < TWO_PI; angle += PI / 3) {
-        let petalX = x + cos(angle) * 30;
-        let petalY = y + sin(angle) * 30;
-        let petalWidth = random(15, 25); // Ancho del pétalo aleatorio
-        let petalHeight = random(15, 25); // Altura del pétalo aleatoria
-        ellipse(petalX, petalY, petalWidth, petalHeight);
+        // Tallo verde
+        fill(0, 128, 0);
+        rect(x - 2, y, 4, 100);
+        
+        // Pétalos amarillos
+        fill(255, 255, 0);
+        for (let angle = 0; angle < TWO_PI; angle += PI / 3) {
+            let petalX = x + cos(angle) * 30;
+            let petalY = y + sin(angle) * 30;
+            ellipse(petalX, petalY, 20, 20);
+        }
+        
+        // Centro marrón
+        fill(139, 69, 19);
+        ellipse(x, y, 20, 20);
     }
-    
-    // Centro marrón
-    fill(139, 69, 19);
-    ellipse(x, y, 20, 20);
-}
 </script>
 </html>
