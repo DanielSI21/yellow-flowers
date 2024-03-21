@@ -19,10 +19,15 @@
     
 </body>
 <script>
+    let flowers = [];
+
     function setup() {
         createCanvas(windowWidth, windowHeight);
         background(255, 220, 220);
-        
+    }
+    
+    function draw() {
+        background(255, 220, 220);
         // Dibujar el texto "Para: Naara" con estilo de regalo
         textSize(20);
         textAlign(CENTER, CENTER);
@@ -30,33 +35,52 @@
         textFont("cursive"); // Utiliza una fuente cursiva
         stroke(255); // Color del contorno del texto
         strokeWeight(3); // Grosor del contorno del texto
-        text('Te programé unas flores amarillas<3', width / 2, 50);
+        text('Te programé flores amarillas infinitas<3', width / 2, 50);
         noStroke();
-        
-        // Dibujar flores amarillas
-        for (let i = 0; i < 10; i++) {
+
+        for (let i = 0; i < flowers.length; i++) {
+            flowers[i].update();
+            flowers[i].display();
+        }
+
+        // Probabilidad de crear nuevas flores (ajustada para menos densidad)
+        if (random(1) < 0.02) {
             let x = random(width);
-            let y = random(100, height - 100);
-            drawFlower(x, y);
+            flowers.push(new Flower(x, 0));
         }
     }
-    
-    function drawFlower(x, y) {
-        // Tallo verde
-        fill(0, 128, 0);
-        rect(x - 2, y, 4, 100);
-        
-        // Pétalos amarillos
-        fill(255, 255, 0);
-        for (let angle = 0; angle < TWO_PI; angle += PI / 3) {
-            let petalX = x + cos(angle) * 30;
-            let petalY = y + sin(angle) * 30;
-            ellipse(petalX, petalY, 20, 20);
+
+    class Flower {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
         }
-        
-        // Centro marrón
-        fill(139, 69, 19);
-        ellipse(x, y, 20, 20);
+
+        update() {
+            this.y += 1; // Velocidad de caída
+            if (this.y > height) {
+                this.y = 0; // Reiniciar la posición cuando la flor cae fuera de la pantalla
+                this.x = random(width); // Posición aleatoria en el eje x
+            }
+        }
+
+        display() {
+            // Tallo verde
+            fill(0, 128, 0);
+            rect(this.x - 1, this.y, 2, 50);
+            
+            // Pétalos amarillos (ajustados para ser más pequeños)
+            fill(255, 255, 0);
+            for (let angle = 0; angle < TWO_PI; angle += PI / 3) {
+                let petalX = this.x + cos(angle) * 15;
+                let petalY = this.y + sin(angle) * 15;
+                ellipse(petalX, petalY, 10, 10);
+            }
+            
+            // Centro marrón
+            fill(139, 69, 19);
+            ellipse(this.x, this.y, 10, 10);
+        }
     }
 </script>
 </html>
